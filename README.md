@@ -1,6 +1,7 @@
 # MyBarrelRacers
 
 ## Overview
+**MyBarrelRacers is a web application for the CST8256- Web programming language I
 **MyBarrelRacers** is a Razor Pages web application that allows users to manage barrel racing participants and their scores. The app lets you:
 - Add new racers.
 - View, edit, or delete racer records.
