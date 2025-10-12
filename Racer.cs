@@ -10,32 +10,35 @@ namespace MyBarrelRacers.Models
         [Display(Name = "Racer Number")]
         public int Number { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Racer name is required.")]
+        [StringLength(50, ErrorMessage = "Name cannot exceed 50 characters.")]
+        [RegularExpression(@"^[A-Za-z\s]+$", ErrorMessage = "Name must contain only letters and spaces.")]
         [Display(Name = "Racer Name")]
         public string Name { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "Home town is required.")]
+        [StringLength(50, ErrorMessage = "Home town cannot exceed 50 characters.")]
+        [RegularExpression(@"^[A-Za-z\s]+$", ErrorMessage = "Home town must contain only letters and spaces.")]
         [Display(Name = "Home Town")]
         public string Home { get; set; } = string.Empty;
 
-        [Required]
-        [Range(10.00, 30.00)]
+        [Required(ErrorMessage = "Score is required.")]
+        [Range(10.00, 30.00, ErrorMessage = "Score must be between 10.00 and 30.00 seconds.")]
         [Column(TypeName = "decimal(5,2)")] // Fixed precision warning
         [Display(Name = "Score (seconds)")]
         public decimal Score { get; set; }
 
-        // 🆕 New Fields Added
-
+        [StringLength(50, ErrorMessage = "Horse name cannot exceed 50 characters.")]
+        [RegularExpression(@"^[A-Za-z\s]*$", ErrorMessage = "Horse name must contain only letters and spaces.")]
         [Display(Name = "Horse Name")]
-        [StringLength(50)]
         public string? HorseName { get; set; }
 
-        [Display(Name = "Competition Date")]
         [DataType(DataType.Date)]
+        [Display(Name = "Competition Date")]
         public DateTime CompetitionDate { get; set; }
 
+        [StringLength(100, ErrorMessage = "Event location cannot exceed 100 characters.")]
         [Display(Name = "Event Location")]
-        [StringLength(100)]
         public string? EventLocation { get; set; }
 
         [Display(Name = "Is Qualified for Finals?")]
