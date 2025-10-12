@@ -1,5 +1,18 @@
 # MyBarrelRacers
 
+
+## Lab 4 – Razor Pages Validation
+
+**Objectives:**
+1. Add validation rules: Required, Range, StringLength, RegularExpression
+2. Update the model with validation attributes
+3. Test validation in Create and Edit pages
+
+**Status:** In Progress / Completed
+
+**Branch:** lab4
+
+
 ## Overview
 **MyBarrelRacers is a web application for the CST8256- Web programming language I
 **MyBarrelRacers** is a Razor Pages web application that allows users to manage barrel racing participants and their scores. The app lets you:
