@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35728.132 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyBarrelRacers", "MyBarrelRacers.csproj", "{4F7D0A92-6DCB-43DB-BC96-C8CFCBB08C89}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorPagesMusic", "RazorPagesMusic.csproj", "{4F7D0A92-6DCB-43DB-BC96-C8CFCBB08C89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

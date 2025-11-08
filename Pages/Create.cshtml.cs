@@ -1,26 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MyBarrelRacers.Data;
-using MyBarrelRacers.Models;
+using RazorPagesMusic.Data;
+using RazorPagesMusic.Models;
 using System.Threading.Tasks;
 
-namespace MyBarrelRacers.Pages
+namespace RazorPagesMusic.Pages.Songs
 {
     public class CreateModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly MusicContext _context;
 
-        public CreateModel(ApplicationDbContext context)
+        public CreateModel(MusicContext context)
         {
             _context = context;
         }
 
         [BindProperty]
-        public Racer Racer { get; set; } = new Racer();
+        public Song Song { get; set; } = new Song();
 
         public void OnGet()
         {
-            // Nothing needed here, form will be empty
+            // Nothing needed here; form will be empty
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -30,11 +30,10 @@ namespace MyBarrelRacers.Pages
                 return Page();
             }
 
-            _context.Racers.Add(Racer);
+            _context.Songs.Add(Song);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("Index");
         }
     }
 }
-
