@@ -1,12 +1,15 @@
 using Microsoft.EntityFrameworkCore;
-using MyBarrelRacers.Data;
+using RazorPagesMusic.Data;  // Updated namespace for your DbContext
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Configure EF Core to use SQLite and the correct connection string
+builder.Services.AddDbContext<MusicContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("MusicContext")
+        ?? "Data Source=music.db"));
 
 var app = builder.Build();
 
@@ -21,5 +24,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
+
 app.MapRazorPages();
+
 app.Run();

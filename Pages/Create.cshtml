@@ -1,13 +1,13 @@
 ﻿@page
-@model MyBarrelRacers.Pages.CreateModel
+@model RazorPagesMusic.Pages.Songs.CreateModel
 
 @{
-    ViewData["Title"] = "Create Racer";
+    ViewData["Title"] = "Create Song";
 }
 
-<h1>Create Racer</h1>
+<h1>Create Song</h1>
 
-<h4>Racer</h4>
+<h4>Song</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -16,46 +16,36 @@
 
             <div class="form-group">
                 <span class="text-danger">*</span>
-                <label asp-for="Racer.Name" class="control-label"></label>
-                <input asp-for="Racer.Name" class="form-control" />
-                <span asp-validation-for="Racer.Name" class="text-danger"></span>
+                <label asp-for="Song.Title" class="control-label"></label>
+                <input asp-for="Song.Title" class="form-control" />
+                <span asp-validation-for="Song.Title" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <span class="text-danger">*</span>
-                <label asp-for="Racer.Home" class="control-label"></label>
-                <input asp-for="Racer.Home" class="form-control" />
-                <span asp-validation-for="Racer.Home" class="text-danger"></span>
+                <label asp-for="Song.Artist" class="control-label"></label>
+                <input asp-for="Song.Artist" class="form-control" />
+                <span asp-validation-for="Song.Artist" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <span class="text-danger">*</span>
-                <label asp-for="Racer.Score" class="control-label"></label>
-                <input asp-for="Racer.Score" class="form-control" />
-                <span asp-validation-for="Racer.Score" class="text-danger"></span>
+                <label asp-for="Song.Genre" class="control-label"></label>
+                <input asp-for="Song.Genre" class="form-control" />
+                <span asp-validation-for="Song.Genre" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Racer.HorseName" class="control-label"></label>
-                <input asp-for="Racer.HorseName" class="form-control" />
-                <span asp-validation-for="Racer.HorseName" class="text-danger"></span>
+                <span class="text-danger">*</span>
+                <label asp-for="Song.ReleaseDate" class="control-label"></label>
+                <input asp-for="Song.ReleaseDate" class="form-control" type="date" />
+                <span asp-validation-for="Song.ReleaseDate" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Racer.CompetitionDate" class="control-label"></label>
-                <input asp-for="Racer.CompetitionDate" class="form-control" type="date" />
-                <span asp-validation-for="Racer.CompetitionDate" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Racer.EventLocation" class="control-label"></label>
-                <input asp-for="Racer.EventLocation" class="form-control" />
-                <span asp-validation-for="Racer.EventLocation" class="text-danger"></span>
-            </div>
-
-            <div class="form-group form-check">
-                <input asp-for="Racer.Qualified" class="form-check-input" />
-                <label asp-for="Racer.Qualified" class="form-check-label"></label>
+                <label asp-for="Song.Rating" class="control-label"></label>
+                <input asp-for="Song.Rating" class="form-control" />
+                <span asp-validation-for="Song.Rating" class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -66,7 +56,7 @@
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-page="/Songs/Index">Back to List</a>
 </div>
 
 @section Scripts {

@@ -1,39 +1,41 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using MyBarrelRacers.Data;
-using MyBarrelRacers.Models;
+using RazorPagesMusic.Data;
+using RazorPagesMusic.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MyBarrelRacers.Pages
+namespace RazorPagesMusic.Pages.Songs
 {
     public class IndexModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly MusicContext _context;
 
-        public IndexModel(ApplicationDbContext context)
+        public IndexModel(MusicContext context)
         {
             _context = context;
         }
 
-        public IList<Racer> Racer { get; set; }
+        // List of songs to display
+        public IList<Song> Songs { get; set; } = default!;
 
+        // For search functionality
         [BindProperty(SupportsGet = true)]
-        public string SearchString { get; set; }
+        public string SearchString { get; set; } = string.Empty;
 
         public async Task OnGetAsync()
         {
-            var racers = from r in _context.Racers
-                         select r;
+            var songs = from s in _context.Songs
+                        select s;
 
             if (!string.IsNullOrEmpty(SearchString))
             {
-                racers = racers.Where(r => r.Name.Contains(SearchString));
+                songs = songs.Where(s => s.Title.Contains(SearchString));
             }
 
-            Racer = await racers.ToListAsync();
+            Songs = await songs.ToListAsync();
         }
     }
 }

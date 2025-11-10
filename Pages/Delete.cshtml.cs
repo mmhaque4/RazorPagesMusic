@@ -1,26 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using MyBarrelRacers.Data;
-using MyBarrelRacers.Models;
+using RazorPagesMusic.Data;
+using RazorPagesMusic.Models;
 
-namespace MyBarrelRacers.Pages
+namespace RazorPagesMusic.Pages.Songs
 {
     public class DeleteModel : PageModel
     {
-        private readonly MyBarrelRacers.Data.ApplicationDbContext _context;
+        private readonly MusicContext _context;
 
-        public DeleteModel(MyBarrelRacers.Data.ApplicationDbContext context)
+        public DeleteModel(MusicContext context)
         {
             _context = context;
         }
 
         [BindProperty]
-        public Racer Racer { get; set; } = default!;
+        public Song Song { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,16 +26,14 @@ namespace MyBarrelRacers.Pages
                 return NotFound();
             }
 
-            var racer = await _context.Racers.FirstOrDefaultAsync(m => m.Number == id);
+            var song = await _context.Songs.FirstOrDefaultAsync(s => s.Id == id);
 
-            if (racer == null)
+            if (song == null)
             {
                 return NotFound();
             }
-            else
-            {
-                Racer = racer;
-            }
+
+            Song = song;
             return Page();
         }
 
@@ -49,11 +44,11 @@ namespace MyBarrelRacers.Pages
                 return NotFound();
             }
 
-            var racer = await _context.Racers.FindAsync(id);
-            if (racer != null)
+            var song = await _context.Songs.FindAsync(id);
+            if (song != null)
             {
-                Racer = racer;
-                _context.Racers.Remove(Racer);
+                Song = song;
+                _context.Songs.Remove(Song);
                 await _context.SaveChangesAsync();
             }
 

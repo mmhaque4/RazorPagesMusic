@@ -1,29 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using MyBarrelRacers.Data;
-using MyBarrelRacers.Models;
+using RazorPagesMusic.Data;
+using RazorPagesMusic.Models;
 using System.Threading.Tasks;
+using System.Linq;
 
-namespace MyBarrelRacers.Pages
+namespace RazorPagesMusic.Pages.Songs
 {
     public class EditModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly MusicContext _context;
 
-        public EditModel(ApplicationDbContext context)
+        public EditModel(MusicContext context)
         {
             _context = context;
         }
 
         [BindProperty]
-        public Racer Racer { get; set; } = new Racer();
+        public Song Song { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            Racer = await _context.Racers.FindAsync(id);
+            Song = await _context.Songs.FindAsync(id);
 
-            if (Racer == null)
+            if (Song == null)
             {
                 return NotFound();
             }
@@ -38,7 +39,7 @@ namespace MyBarrelRacers.Pages
                 return Page();
             }
 
-            _context.Attach(Racer).State = EntityState.Modified;
+            _context.Attach(Song).State = EntityState.Modified;
 
             try
             {
@@ -46,7 +47,7 @@ namespace MyBarrelRacers.Pages
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RacerExists(Racer.Number))
+                if (!SongExists(Song.Id))
                 {
                     return NotFound();
                 }
@@ -59,9 +60,9 @@ namespace MyBarrelRacers.Pages
             return RedirectToPage("Index");
         }
 
-        private bool RacerExists(int id)
+        private bool SongExists(int id)
         {
-            return _context.Racers.Any(e => e.Number == id);
+            return _context.Songs.Any(e => e.Id == id);
         }
     }
 }
