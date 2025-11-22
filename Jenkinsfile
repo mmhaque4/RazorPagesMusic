@@ -1,8 +1,4 @@
-﻿using Microsoft.CodeAnalysis.Scripting;
-using Microsoft.Extensions.Hosting;
-using Mono.TextTemplating;
-
-pipeline {
+﻿pipeline {
     agent any
 
     environment {
@@ -26,54 +22,51 @@ pipeline {
         }
 
         stage('Checkout Application Branch') {
-    steps {
-        echo "📦 Checking out current branch from SCM..."
+            steps {
+                echo "📦 Checking out the current branch from SCM..."
                 checkout scm
             }
-}
+        }
 
-stage('Clone Ansible Repo') {
-    steps {
-        echo "📦 Cloning ansible_playbooks repository..."
+        stage('Clone Ansible Repo') {
+            steps {
+                echo "📦 Cloning ansible_playbooks repository..."
                 dir("${ANSIBLE_DIR}") {
-            git branch: 'main',
+                    git branch: 'main',
                         url: "${ANSIBLE_REPO}",
                         credentialsId: 'Github-credens'
                 }
-    }
-}
+            }
+        }
 
-stage('Setup Python Virtual Environment') {
-    steps {
-        script {
-            if (!fileExists("${VENV_DIR}/bin/ansible-playbook"))
-            {
-                echo "🐍 Creating Python virtual environment and installing Ansible..."
+        stage('Setup Python Virtual Environment') {
+            steps {
+                script {
+                    if (!fileExists("${VENV_DIR}/bin/ansible-playbook")) {
+                        echo "🐍 Creating Python virtual environment and installing Ansible..."
                         sh """
                             mkdir -p /var/lib/jenkins/.venvs
                             python3 -m venv "${VENV_DIR}"
                             ${VENV_DIR}/bin/pip install --upgrade pip
                             ${VENV_DIR}/bin/pip install ansible pywinrm
                         """
+                    } else {
+                        echo "✅ Virtual environment already exists. Skipping installation."
                     }
-            else
-            {
-                echo "✅ Virtual environment already exists. Skipping installation."
-                    }
+                }
+            }
         }
-    }
-}
 
-stage('Run Ansible Playbook') {
-    steps {
-        dir("${ANSIBLE_DIR}") {
-            echo "🚀 Running Ansible playbook..."
+        stage('Run Ansible Playbook') {
+            steps {
+                dir("${ANSIBLE_DIR}") {
+                    echo "🚀 Running Ansible playbook..."
                     sh """
-                        ${ANSSIBLE_PLAYBOOK} windows-deploy.yml -i inventory.ini -e app_source_dir=${WORKSPACE}
+                        ${ANSIBLE_PLAYBOOK} windows-deploy.yml -i inventory.ini -e app_source_dir=${WORKSPACE}
                     """
                 }
-    }
-}
+            }
+        }
     }
 
     post {
